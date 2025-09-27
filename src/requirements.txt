@@ -9,3 +9,4 @@ resend
 Pillow
 gunicorn
 whitenoise
+torch
