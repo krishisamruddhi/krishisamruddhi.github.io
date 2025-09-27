@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krishisamruddhi</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <a href="{% url 'home' %}" class="logo">Krishisamruddhi 🌾</a>
+            <nav>
+                <a href="{% url 'home' %}" class="active">🏠 Home</a>
+                <a href="{% url 'detect' %}">🌱 Crop Disease Detection</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Advanced Crop Health Monitoring</h1>
+            <p>Leveraging AI to provide quick and accurate disease detection for your crops.</p>
+            <a href="{% url 'detect' %}" class="cta-button">Start Detection Now</a>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <h2>Why Choose Us?</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>⚡ Instant Diagnosis</h3>
+                        <p>Upload an image of a crop leaf and get an instant analysis of its health condition.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>✅ High Accuracy</h3>
+                        <p>Our AI model is trained on thousands of images to provide highly accurate predictions.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>📱 User-Friendly</h3>
+                        <p>A simple and intuitive interface designed for farmers and agricultural professionals.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Krishisamruddhi. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
