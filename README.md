@@ -1,7 +1,3 @@
-Of course, here is a `README.md` file for your project. You can copy and paste this into the `README.md` file in your GitHub repository.
-
------
-
 # Krishi Samruddhi 🌾
 
 Krishi Samruddhi is an innovative web application designed to assist farmers in identifying and managing crop diseases. By leveraging a powerful machine learning model, this tool provides quick and accurate disease detection, empowering farmers to take timely action and protect their crops.
