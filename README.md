@@ -55,15 +55,23 @@ To run this project locally, follow these steps:
 
 -----
 
-## Deployment
-
-This web application is deployed using **Render.com**.
-
------
-
 ## Technologies Used
 
   * **Backend:** Django
   * **Machine Learning:** PyTorch
   * **Frontend:** HTML, CSS
   * **Deployment:** Render.com, Gunicorn, Whitenoise
+
+-----
+
+## Dataset
+
+The model for this project was trained on the **20k Multi-class Crop Disease Images** dataset from Kaggle.
+
+You can find the dataset here: [Crop Disease Images Dataset](https://www.kaggle.com/datasets/jawadali1045/20k-multi-class-crop-disease-images/data)
+
+-----
+
+## Deployment
+
+This web application is deployed using **Render.com**.
