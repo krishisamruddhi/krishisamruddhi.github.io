@@ -1,77 +1,109 @@
-# Krishisamruddhi - Crop Disease Detection
+# Krishisamruddhi – Crop Disease Detection (Django + PyTorch)
 
-## Description
-
-**Krishisamruddhi** is a web application built with Django that helps farmers detect diseases in their crops. Users can upload an image of a crop leaf, and the application will predict the disease with a certain confidence level. This tool aims to assist farmers in identifying crop diseases early, enabling them to take timely action and protect their harvest.
-
------
+An AI-powered web application to detect crop diseases from leaf images. Users can upload a photo of a crop leaf, and the app predicts the disease class along with a confidence score.
 
 ## Features
+- Image upload interface for crop leaf analysis
+- Server-side inference using a CNN (PyTorch)
+- Top-1 predicted class and confidence display
+- Simple, responsive UI with two pages: `home` and `detect`
 
-  * **Disease Prediction:** Upload an image of a crop leaf to get a prediction of the disease.
-  * **Confidence Score:** View the confidence level of the prediction to gauge its accuracy.
-  * **Simple Interface:** Easy-to-use web interface for uploading images and viewing results.
-
------
-
-## Installation
-
-To run this project locally, follow these steps:
-
-1.  **Clone the repository:**
-    ```bash
-    git clone https://your-repository-url.git
-    ```
-2.  **Create a virtual environment:**
-    ```bash
-    python -m venv venv
-    ```
-3.  **Activate the virtual environment:**
-      * On Windows:
-        ```bash
-        venv\Scripts\activate
-        ```
-      * On macOS and Linux:
-        ```bash
-        source venv/bin/activate
-        ```
-4.  **Install the dependencies:**
-    ```bash
-    pip install -r requirements.txt
-    ```
-5.  **Run the development server:**
-    ```bash
-    python manage.py runserver
-    ```
-
------
-
-## Usage
-
-1.  Navigate to the home page.
-2.  Click on the "Detect Disease" button.
-3.  Upload an image of a crop leaf.
-4.  The application will display the predicted disease and the confidence score.
-
------
-
-## Technologies Used
-
-  * **Backend:** Django
-  * **Machine Learning:** PyTorch
-  * **Frontend:** HTML, CSS
-  * **Deployment:** Render.com, Gunicorn, Whitenoise
-
------
+## Tech Stack
+- Backend: Django 5
+- ML Inference: PyTorch, TorchVision, Pillow
+- Frontend: Django Templates, CSS
+- Storage: SQLite (development)
+- Static files: WhiteNoise (configured)
 
 ## Dataset
+- Training data: 20k Multi-Class Crop Disease Images
+- Source: Kaggle — [`20k-multi-class-crop-disease-images`](https://www.kaggle.com/datasets/jawadali1045/20k-multi-class-crop-disease-images/data)
 
-The model for this project was trained on the **20k Multi-class Crop Disease Images** dataset from Kaggle.
+## Model
+- Architecture: Simple CNN defined in `disease_detection/ml_model/model.py`
+- Weights: `disease_detection/ml_model/model.pth`
+- Input transforms: Resize to 64×64, convert to tensor
+- Output classes: 42 crop health/disease categories (see `CLASS_NAMES` in `disease_detection/predictor.py`)
+- Reported performance: ~80% accuracy (top-1)
 
-You can find the dataset here: [Crop Disease Images Dataset](https://www.kaggle.com/datasets/jawadali1045/20k-multi-class-crop-disease-images/data)
+## Project Structure
+```
+src/
+  manage.py
+  krishisamruddhi/
+    settings.py
+    urls.py
+    wsgi.py
+    asgi.py
+  disease_detection/
+    urls.py
+    views.py
+    predictor.py
+    models.py
+    admin.py
+    ml_model/
+      model.py
+      model.pth
+    templates/
+      disease_detection/
+        home.html
+        detect.html
+  static/
+    css/style.css
+    images/background.jpg
+  media/            # uploaded images will be stored here
+  requirements.txt
+```
 
------
+## Setup
+1. Create and activate a virtual environment.
+   - Windows (PowerShell):
+     ```powershell
+     python -m venv .venv
+     .venv\Scripts\Activate.ps1
+     ```
+   - macOS/Linux (bash):
+     ```bash
+     python3 -m venv .venv
+     source .venv/bin/activate
+     ```
 
-## Deployment
+2. Install dependencies:
+   ```bash
+   pip install -r src/requirements.txt
+   ```
 
-This web application is deployed using **Render.com**.
+3. Apply migrations and collect static (optional for dev):
+   ```bash
+   python src/manage.py migrate
+   python src/manage.py collectstatic --noinput
+   ```
+
+4. Run the development server:
+   ```bash
+   python src/manage.py runserver
+   ```
+
+5. Open the app at `http://127.0.0.1:8000/`.
+
+## Usage
+- Go to Home → "Crop Disease Detection".
+- Upload a clear image of a crop leaf (JPG/PNG).
+- Submit to view predicted disease and confidence.
+
+## Key Endpoints
+- `/` → Home
+- `/detect/` → Image upload and prediction
+
+## Configuration Notes
+- Media (uploaded files): `MEDIA_ROOT` is `src/media/` and served in DEBUG mode.
+- Static files: WhiteNoise configured; `STATICFILES_DIRS` includes `src/static/`, `STATIC_ROOT` is `src/staticfiles/`.
+- Allowed hosts: `*` in development. Restrict in production.
+
+## Development Tips
+- The predictor loads the model on import for efficient inference: see `disease_detection/predictor.py`.
+- Update or retrain the model by replacing `model.pth` and ensuring class order matches `CLASS_NAMES`.
+- If running on CPU-only environments, current code maps tensors to CPU (`map_location='cpu'`).
+
+## License
+This project is for educational purposes. Check dataset licensing on Kaggle before commercial use.
